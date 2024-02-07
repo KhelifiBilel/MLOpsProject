@@ -14,7 +14,7 @@ def get_requirements(path:str)->List[str]:
 
     return requirements
     
-"""" build the entire project """
+""""  build the entire project  """
 setup(   
     name='MLOPS Project',
     version='0.0.1',
