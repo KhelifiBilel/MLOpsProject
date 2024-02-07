@@ -14,11 +14,11 @@ def get_requirements(path:str)->List[str]:
 
     return requirements
     
-    
+"""" build the entire project """
 setup(   
     name='MLOPS Project',
     version='0.0.1',
     author='Bilel',
     packages=find_packages(),
     install_requires=get_requirements('requirements.txt')
-) # build the entire project
+)
