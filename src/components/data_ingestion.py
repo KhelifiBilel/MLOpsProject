@@ -6,7 +6,9 @@ from dataclasses import dataclass
 
 from src.exception import CustomException
 from src.logger import logging
-from src.components.data_transformation import dataTransformation, dataTransformationConfig
+from src.components.data_transformation import dataTransformation
+from src.components.model_trainer import ModelTrainer
+
 
 @dataclass
 class DataIngestionConfig: # where to save train, test, raw data paths
@@ -31,7 +33,7 @@ class DataIngestion:
             
             logging.info('Data Split Started')
             
-            train_data,test_data = train_test_split(dataFr, test_size=0.25, random_state=0)
+            train_data,test_data = train_test_split(dataFr, test_size=0.2, random_state=42)
             
             train_data.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
             test_data.to_csv(self.ingestion_config.test_data_path, index=False, header=True)
@@ -55,4 +57,9 @@ if __name__=='__main__':
     
     
     data_transformation = dataTransformation()
-    data_transformation.initiate_data_transformation(train_path, test_path)
+    train_arr, test_array,_ =  data_transformation.initiate_data_transformation(train_path, test_path)
+    
+    model_trainer = ModelTrainer()
+    r2_score = model_trainer.initiate_trainer(train_arr, test_array )
+    
+    print('r2_score',r2_score)
